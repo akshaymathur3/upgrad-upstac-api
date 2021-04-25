@@ -53,11 +53,7 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTests()  {
 
-
        return testRequestQueryService.findBy(RequestStatus.INITIATED);
-
-
-
 
     }
 
@@ -65,15 +61,12 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTester()  {
 
-        // Implement This Method
+        // Storing current logged in user
+        User tester = userLoggedInService.getLoggedInUser();
 
-        // Create an object of User class and store the current logged in user first
-        //Implement this method to return the list of test requests assigned to current tester(make use of the above created User object)
-        //Make use of the findByTester() method from testRequestQueryService class
-        // For reference check the method getForTests() method from LabRequestController class
-
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented"); // replace this line with your code
-
+        // Using findByTester() method from testRequestQueryService class to return the list of test requests assigned
+        // to current tester
+        return testRequestQueryService.findByTester(tester);
 
     }
 
